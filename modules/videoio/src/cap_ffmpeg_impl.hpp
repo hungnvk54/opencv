@@ -1206,8 +1206,8 @@ bool CvCapture_FFMPEG::grabFrame()
 
     if( !ic || !video_st )  return false;
 
-    if( ic->streams[video_stream]->nb_frames > 0 &&
-        frame_number > ic->streams[video_stream]->nb_frames )
+    if( //ic->streams[video_stream]->nb_frames > 0 &&
+        frame_number > get_total_frames()) //ic->streams[video_stream]->nb_frames )
         return false;
 
     picture_pts = AV_NOPTS_VALUE_;
@@ -1528,7 +1528,7 @@ double CvCapture_FFMPEG::get_fps() const
 
 int64_t CvCapture_FFMPEG::get_total_frames() const
 {
-    int64_t nbf = ic->streams[video_stream]->nb_frames;
+    int64_t nbf = 0; //ic->streams[video_stream]->nb_frames;
 
     if (nbf == 0)
     {
